@@ -1,0 +1,87 @@
+fnm default 22
+winget install Schniz.fnm
+
+在 Windows 上管理 Node.js 版本，强烈建议使用专门的版本管理工具。这能帮你轻松解决之前遇到的 npm error code 3221225477（通常由版本不兼容引起），并允许你在不同项目间切换不同的 Node 版本。
+
+以下是 Windows 平台上最推荐的几款工具：
+
+fnm (Fast Node Manager) —— 首选推荐 ⭐
+特点：基于 Rust 编写，速度极快，兼容性强，支持 .nvmrc 文件（自动切换版本），是目前 Windows 上体验最好的工具。
+优点：
+    秒级切换版本。
+    自动检测项目目录下的 .nvmrc 文件并切换对应版本。
+    安装简单，无需管理员权限即可使用（安装后需配置环境变量）。
+    完全兼容 nvm 的命令风格。
+安装方法 (使用 PowerShell 管理员模式):
+        winget install Schniz.fnm
+    
+    或者使用 Scoop:
+        scoop install fnm
+    
+   安装后需按照提示将几行代码添加到你的 PowerShell 配置文件 ($PROFILE) 中以启用它。
+
+常用命令:
+        fnm install 20      # 安装 Node v20
+    fnm use 20          # 切换到 v20
+    fnm default 20      # 设置全局默认为 v20
+    fnm list            # 列出已安装版本
+    
+
+nvm-windows (node-version-manager) —— 经典老牌
+特点：这是 Windows 上最老牌的 Node 版本管理工具，用户基数大，教程多。
+优点：
+    社区成熟，遇到问题容易搜到解决方案。
+    图形化安装程序，傻瓜式操作。
+缺点：
+    基于 Shell 脚本模拟，速度比 fnm 慢。
+    有时在处理全局 npm 包路径时会出现小 bug。
+    不再积极维护新功能，主要处于维护模式。
+安装方法:
+    前往 GitHub  Releases 下载安装包：coreybutler/nvm-windows
+    运行 .exe 安装程序（注意：安装前最好卸载掉通过官网安装的固定版 Node.js，以免冲突）。
+常用命令:
+        nvm install 20.11.0 # 安装指定版本
+    nvm use 20.11.0     # 使用该版本
+    nvm list            # 列出版本
+    
+
+Volta —— 开发者体验最佳
+特点：主打“无缝”体验，不仅管理 Node，还能管理 yarn, npm, pnpm 等工具的版本。
+优点：
+    自动切换：无需手动输入命令，进入不同项目文件夹自动切换对应的 Node 版本。
+    保证团队环境一致性极佳。
+    安装过程非常干净，不污染系统环境变量。
+缺点：
+    对某些非常规的构建流程兼容性略逊于 fnm/nvm。
+安装方法:
+        winget install Volta.Volta
+    
+    或者访问官网下载安装脚本。
+
+Corepack (Node.js 内置)
+说明：从 Node.js v16.9 开始内置。它主要用于管理包管理器（如 yarn, pnpm）的版本，不能用来切换 Node.js 本身的版本。
+用法：通常配合上述工具使用，用于锁定 yarn 或 pnpm 的版本。
+
+💡 针对你之前问题的建议方案
+
+鉴于你之前遇到了 npm error code 3221225477 和 OpenClaw 安装问题，我强烈建议你采取以下步骤：
+
+彻底卸载旧版 Node.js：
+    去“设置” -> “应用”中，卸载所有已安装的 Node.js 版本。
+    删除残留文件夹：C:Program Filesnodejs 和 C:Users你的用户名AppDataRoamingnpm (如果存在)。
+
+安装 fnm (推荐) 或 nvm-windows：
+    推荐使用 fnm，因为它更快且对新版 Node 支持更好。
+
+安装推荐的 Node 版本：
+    OpenClaw 通常推荐 Node 20 LTS 或 Node 22 LTS。
+    使用 fnm 安装：
+                fnm install 20
+        fnm use 20
+        
+
+重新安装 OpenClaw：
+    在确认 node -v 显示正确版本后，重新进入项目目录执行 npm install。
+
+为什么这样做能解决报错？
+之前的报错很可能是因为系统中残留了多个 Node 版本，或者当前版本与项目依赖的 C++ 模块（node-gyp）不兼容。使用版本管理工具可以确保环境纯净，并且可以轻松尝试不同版本直到找到最稳定的那个。
