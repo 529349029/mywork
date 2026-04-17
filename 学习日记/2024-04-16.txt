@@ -1,0 +1,19 @@
+  function _checkRole(bytes32 role, address account) internal view {
+    if (!hasRole(role, account)) {
+      revert(
+        string(
+          abi.encodePacked(
+            'AccessControl: account ',
+            Strings.toHexString(uint160(account), 20),
+            ' is missing role ',
+            Strings.toHexString(uint256(role), 32)
+          )
+        )
+      );
+    }
+  }
+
+
+
+https://bscscan.com/address/0x625EdAB184b3B517654097875F1D8C9820163e31#code
+这是一个很优质的合约

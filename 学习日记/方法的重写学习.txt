@@ -1,0 +1,16 @@
+pragma solidity >=0.6.0 <0.7.0;
+contract T1{
+    function a() internal pure virtual   returns(uint){
+        return 15;
+    }
+    function b() public pure returns(uint){
+        return a();        
+    }
+}
+contract T2 is T1{
+    function a() internal override  pure returns(uint){
+        return 20;
+    }
+}
+
+部署T2之后执行b()方法之后，得到的是不是15，而是20

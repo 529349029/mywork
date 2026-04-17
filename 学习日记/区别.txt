@@ -1,0 +1,46 @@
+pragma solidity ^0.8.19;
+type GasPrice is uint256;
+/*
+在 Solidity 中，当你使用 type X is Y 语法创建自定义类型（类型别名）时，wrap() 和 unwrap() 方法是由编译器自动生成的，不需要开发者手动声明。
+这两个方法的作用是：
+wrap(Y value)：将基础类型 Y 的值转换为自定义类型 X
+unwrap(X value)：将自定义类型 X 的值转换回基础类型 Y
+*/
+contract T1 {
+    // 声明一个 GasPrice 类型的变量
+    GasPrice public currentGasPrice;
+
+    // 赋值时需要显式转换
+    function setGasPrice(uint256 _price) public {
+        currentGasPrice = GasPrice.wrap(_price);
+    }
+
+    // 取值时也需要显式转换
+    function getGasPrice() public view returns (uint256) {
+        return GasPrice.unwrap(currentGasPrice);
+    }
+}
+contract EncodeTest {
+    function testEncode() public pure returns (bytes memory) {
+        // 每个参数都对齐到32字节
+        return abi.encode(uint16(1), uint16(2)); // 返回64字节
+    }
+    
+    function testEncodePacked() public pure returns (bytes memory) {
+        // 紧凑编码，不填充
+        return abi.encodePacked(uint16(1), uint16(2)); // 返回4字节
+    }
+    
+    function testAmbiguity() public pure returns (bool) {
+        // 歧义示例：不同输入可能产生相同输出
+        bytes memory a = abi.encodePacked("a", "b");
+        bytes memory b = abi.encodePacked("ab");
+        return keccak256(a) == keccak256(b); // 返回true
+    }
+        function testAmbiguity1() public pure returns (bytes memory,bytes memory) {
+        // 歧义示例：不同输入可能产生相同输出
+        bytes memory a = abi.encodePacked("a", "b");
+        bytes memory b = abi.encodePacked("ab");
+        return (a,b); // 返回true
+    }
+}

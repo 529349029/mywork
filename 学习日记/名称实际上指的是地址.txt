@@ -1,0 +1,274 @@
+// pragma solidity >=0.6.0 <0.7.0;
+pragma solidity 0.8.26;
+
+interface IAddressBook {
+    /// @dev returns router by given chainId
+    function router(uint64 chainId) external view returns (address);
+}
+
+contract Test1 {
+    uint256 internal constant RESERVE_FACTOR_MASK=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant RESERVE_FACTOR_START_BIT_POSITION = 64;
+    uint256 internal constant ACTIVE_MASK =                    0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant FROZEN_MASK =                    0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant BORROWING_MASK =                 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant STABLE_BORROWING_MASK =          0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7FFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant PAUSED_MASK =                    0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant SUPPLY_CAP_START_BIT_POSITION = 116;
+    uint256 internal constant SUPPLY_CAP_MASK =                0xFFFFFFFFFFFFFFFFFFFFFFFFFF000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant DECIMALS_MASK =                  0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant RESERVE_DECIMALS_START_BIT_POSITION = 48;
+    uint256 internal constant DEBT_CEILING_MASK =              0xF0000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF; // prettier-ignore
+    uint256 internal constant DEBT_CEILING_START_BIT_POSITION = 212;
+
+    function getReserveFactor(
+        //379853417404442462977286940822783262815086255283532
+        uint256 data
+    ) public pure returns (uint256) {
+        //uint256 internal constant RESERVE_FACTOR_MASK=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF; // prettier-ignore
+        //uint256 internal constant RESERVE_FACTOR_START_BIT_POSITION = 64;
+        //uint256 internal constant ~RESERVE_FACTOR_MASK=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF; // prettier-ignore
+        return
+            (data & ~RESERVE_FACTOR_MASK) >> RESERVE_FACTOR_START_BIT_POSITION;
+    }
+
+    function getFlags(uint256 data)
+        public
+        pure
+        returns (
+            bool,
+            bool,
+            bool,
+            bool,
+            bool
+        )
+    {
+        uint256 dataLocal = data;
+        return (
+            (dataLocal & ~ACTIVE_MASK) != 0,
+            (dataLocal & ~FROZEN_MASK) != 0,
+            (dataLocal & ~BORROWING_MASK) != 0,
+            (dataLocal & ~STABLE_BORROWING_MASK) != 0,
+            (dataLocal & ~PAUSED_MASK) != 0
+        );
+    }
+
+    function getSupplyCap(uint256 data) public pure returns (uint256) {
+        return (data & ~SUPPLY_CAP_MASK) >> SUPPLY_CAP_START_BIT_POSITION;
+    }
+
+    function getDecimals(uint256 data) public pure returns (uint256) {
+        return (data & ~DECIMALS_MASK) >> RESERVE_DECIMALS_START_BIT_POSITION;
+    }
+
+    function getDebtCeiling(uint256 data) public pure returns (uint256) {
+        return (data & ~DEBT_CEILING_MASK) >> DEBT_CEILING_START_BIT_POSITION;
+    }
+
+    uint256 internal constant LTV_MASK =0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000; // prettier-ignore
+
+    /**
+     * @notice Gets the Loan to Value of the reserve
+     * @return The loan to value
+     */
+    function getLtv(uint256 data) public pure returns (uint256) {
+        return data & ~LTV_MASK;
+    }
+
+    function testwhile() public pure returns (uint256[] memory) {
+        uint256 i = 0;
+        uint256 sum = 0;
+        uint256[] memory aa = new uint256[](10);
+        // 0 1 2 4
+        while (i < 5) {
+            if (i > 2 && i < 4) {
+                i++;
+                continue;
+            } else {
+                sum += i;
+                aa[i] = i;
+                i++;
+            }
+        }
+        return aa;
+    }
+
+    function testfor() public pure returns (uint256[] memory) {
+        uint256[] memory aa = new uint256[](6);
+        for (uint256 i = 1; i <= 3; i++) {
+            if (i == 2) {
+                continue;
+            } else {
+                aa[i - 1] = i;
+            }
+
+            for (uint256 j = 4; j <= 6; j++) {
+                if (j == 5) {
+                    continue;
+                } else {
+                    aa[j - 1] = j;
+                }
+            }
+        }
+        return aa;
+    }
+
+    struct ReserveConfigurationMap {
+        uint256 data;
+    }
+
+    function changestruct(ReserveConfigurationMap memory aa) public pure {
+        aa.data = aa.data + 1;
+    }
+
+    function teststruct()
+        public
+        pure
+        returns (ReserveConfigurationMap memory rm)
+    {
+        rm = ReserveConfigurationMap({data: 1});
+        changestruct(rm);
+    }
+
+    function teststruct1()
+        public
+        pure
+        returns (ReserveConfigurationMap memory rm)
+    {
+        rm = ReserveConfigurationMap({data: 1});
+        // changestruct(rm);
+    }
+
+    ReserveConfigurationMap public rm1 = ReserveConfigurationMap({data: 3});
+
+    //这里不会改变值
+    function teststruct2()
+        public
+        view
+        returns (ReserveConfigurationMap memory)
+    {
+        changestruct(rm1);
+        return rm1;
+    }
+
+    //这里会改变值
+    function teststruct3() public returns (ReserveConfigurationMap memory) {
+        Test21.changestruct1(rm1);
+        return rm1;
+    }
+//这里会改变值
+    function teststruct7() public returns (ReserveConfigurationMap memory) {
+        Test21.changestruct1(rm1);
+        Test21.changestruct5(rm1);
+        return rm1;
+    }
+
+    function getrm1() public view returns (ReserveConfigurationMap memory aa) {
+        return rm1;
+    }
+
+    using Test21 for ReserveConfigurationMap;
+
+    //这里不会改变这里的值
+    function teststruct4()
+        public
+        pure
+        returns (ReserveConfigurationMap memory rm)
+    {
+        rm = ReserveConfigurationMap({data: 5});
+        rm.changestruct2();
+    }
+
+    //这里会改变值
+    function teststruct5()
+        public
+        pure
+        returns (ReserveConfigurationMap memory rm)
+    {
+        // rm = ReserveConfigurationMap({data: 5});
+        rm = ReserveConfigurationMap({data: 5}).changestruct3();
+    }
+    //这里会改变值
+    function teststruct6()
+        public
+        pure
+        returns (ReserveConfigurationMap memory rm)
+    {
+        rm = ReserveConfigurationMap({data: 5});
+        rm.changestruct4();
+    }
+    struct Tt1{
+        uint a;
+    }
+    Tt1  tt11=Tt1({a:10});
+    uint public aa1;
+    uint public aa2;
+    function teststruct8()public  returns(uint){
+        Tt1 memory tt1=Tt1({a:1});
+        Test21.changestruct6(tt1,tt11);
+        aa1=tt11.a;
+        aa2=tt1.a;
+        return tt1.a;
+    }
+}
+
+library Test21 {
+    //这里会改变原来的值
+    function changestruct1(Test1.ReserveConfigurationMap storage aa) public {
+        aa.data = aa.data + 1;
+    }
+    //这里会改变原来的值
+    function changestruct5(Test1.ReserveConfigurationMap storage aa) internal {
+        aa.data = aa.data + 1;
+    }
+
+    //这里不会改变原来的值
+    function changestruct2(Test1.ReserveConfigurationMap memory aa)
+        public
+        pure
+    {
+        aa.data = aa.data + 1;
+    }
+
+    //这里会返回新的值
+    function changestruct3(Test1.ReserveConfigurationMap memory aa)
+        public
+        pure
+        returns (Test1.ReserveConfigurationMap memory)
+    {
+        aa.data = aa.data + 1;
+        return aa;
+    }
+
+    //这里会改变原来的值
+    function changestruct4(Test1.ReserveConfigurationMap memory aa)
+        internal
+        pure
+    {
+        aa.data = aa.data + 1;
+    }
+    function changestruct6(Test1.Tt1 memory tt2,Test1.Tt1 storage tt3) internal   returns(uint,uint){
+        change1(tt2);
+        change2(tt2);
+        change3(tt3);
+        change4(tt3);
+        
+        return (tt2.a,tt3.a);
+    }
+    function change1(Test1.Tt1 memory tt3)internal pure{
+        tt3.a=2;
+    }
+    function change2(Test1.Tt1 memory tt4) internal pure{
+        if(tt4.a==1)  tt4.a*=3;
+        if(tt4.a==2)   tt4.a*=4;
+        // return tt4.a*5;
+    }
+    function change3(Test1.Tt1 storage tt3)internal {
+        tt3.a=2;
+    }
+    function change4(Test1.Tt1 storage tt4) internal {
+        if(tt4.a==1)  tt4.a*=3;
+        if(tt4.a==2)   tt4.a*=4;
+        // return tt4.a*5;
+    }
+}

@@ -1,0 +1,19 @@
+这里为什么要这样写？这样写有什么目的？
+参考:https://twitter.com/transmissions11/status/1451131036377571328
+/**
+   * @notice Divides two ray, rounding half up to the nearest ray
+   * @dev assembly optimized for improved gas savings, see https://twitter.com/transmissions11/status/1451131036377571328
+   * @param a Ray
+   * @param b Ray
+   * @return c = a raydiv b
+   */
+  function rayDiv(uint256 a, uint256 b) internal pure returns (uint256 c) {
+    // to avoid overflow, a <= (type(uint256).max - halfB) / RAY
+    assembly {
+      if or(iszero(b), iszero(iszero(gt(a, div(sub(not(0), div(b, 2)), RAY))))) {
+        revert(0, 0)
+      }
+
+      c := div(add(mul(a, RAY), div(b, 2)), b)
+    }
+  }

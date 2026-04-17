@@ -1,0 +1,145 @@
+function _callOptionalReturn(address token, bytes memory data) private {
+													        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+													        // we're implementing it ourselves.
+													        (bool success, bytes memory returndata) = token.call(data);
+													        // If the low-level call didn't succeed we return whatever was returned from it.
+													        assembly {
+													            if eq(success, 0) {
+													                returndatacopy(0, 0, returndatasize())
+													                revert(0, returndatasize())
+													            }
+													        }
+													        // Finally we check the returndata size is either zero or true - note that this check will always pass for EOAs
+													        _require(returndata.length == 0 || abi.decode(returndata, (bool)), Errors.SAFE_ERC20_CALL_FAILED);
+													    }
+
+
+
+如果非标准代币没有返回值，token.call(data) 返回的 success 依然是 true。
+
+这里需要区分两个概念：EVM 执行层面的成功 和 业务逻辑层面的返回值。
+
+success 代表什么？
+
+success 是一个布尔值，它只告诉你 EVM 在执行调用时是否遇到了错误。
+
+success = true：表示代币合约的代码顺利执行完毕，没有发生 revert、throw 或 out of gas 等异常。哪怕这个函数什么都不返回，只要它跑完了，success 就是 true。
+success = false：表示代币合约执行过程中崩了（例如余额不足导致 require 失败）。
+
+非标准代币（无返回值）的情况
+
+对于像 USDT 这样的非标准代币，它的 transfer 函数定义可能是这样的：
+
+function transfer(address _to, uint256 _value) public { // 注意：这里没有 returns (bool)
+    // 执行转账逻辑...
+    // 如果出错会 throw/revert
+    // 如果成功，直接结束函数，不返回任何数据
+}
+
+当你调用它时：
+
+执行过程：转账成功，代码运行结束。
+EVM 反馈：因为没有发生错误，EVM 认为执行成功。
+返回结果：
+    success：true（因为没报错）。
+    returnData：空字节（0x），因为函数定义里没说返回什么，它也就没给数据。
+
+代码是如何处理这种情况的？
+
+回到你提供的 _callOptionalReturn 代码片段，正是为了处理这种“成功但没返回值”的情况，才有了后面这一行关键代码：
+
+_require(returndata.length == 0 || abi.decode(returndata, (bool)), ...);
+
+这行代码的逻辑是：
+只要 success 是 true（说明没崩）；
+并且 （returndata.length == 0 或者 解码结果是 true）；
+就认为整个操作是安全的。
+
+总结：
+只要代币合约没有报错（Revert），success 就是 true。至于它有没有返回值，那是 returnData 的事，不影响 success 的状态。
+
+
+
+
+如果被调用的合约函数内部使用了 try...catch 并且成功捕获了所有异常（即代码没有因为错误而中断，而是正常执行到了函数结尾），那么这里的 success 值为 true。
+
+核心原因：EVM 的视角
+
+要理解这一点，我们需要区分“代码逻辑中的错误”和“EVM 执行层面的失败”：
+
+success = true 的条件：
+    只要被调用的合约代码完整执行完毕，没有触发 REVERT、INVALID 操作码，也没有耗尽 Gas，EVM 就会认为这次调用是成功的。
+
+try...catch 的作用：
+    当被调用函数内部发生错误（例如 require 失败）时，如果没有 try...catch，EVM 会立即停止执行并回滚（Revert）。
+    但是，如果有 try...catch 并且捕获了这个错误，代码流会继续执行 catch 块中的代码。只要 catch 块执行完，函数正常返回（哪怕返回的是空数据或错误标记），对 EVM 来说，这就是一次成功的执行。
+
+代码示例
+
+假设被调用的合约 Target 代码如下：
+
+contract Target {
+    function doSomething(bool shouldFail) external returns (bool result) {
+        try this.riskyFunction(shouldFail) {
+            return true; // 成功路径
+        } catch {
+            // 错误被捕获了！
+            // 这里可以记录日志或返回默认值
+            return false; // 注意：这里依然是一个正常的 return
+        }
+    }
+
+    function riskyFunction(bool fail) external pure {
+        require(!fail, "Something went wrong");
+    }
+}
+
+当你在主合约中调用 target.doSomething(true) 时：
+doSomething 内部调用 riskyFunction(true)。
+riskyFunction 触发 require 失败。
+如果没有 try...catch，交易会直接回滚。
+因为有 try...catch，错误被捕获，程序继续执行 catch 块，最后执行 return false。
+结果：函数执行完毕并返回了数据。
+你的 call 返回值：
+    success: true (因为 doSomething 跑完了，没崩)。
+    returnData: 包含 ABI 编码后的 false。
+
+特殊情况：Gas 耗尽
+
+有一个例外是 Gas 耗尽 (Out of Gas)。
+如果被调用的函数内部因为逻辑死循环或计算量过大导致 Gas 耗尽，try...catch 无法捕获 这种错误（因为代码还没运行到 catch 块，EVM 就已经强制终止了）。在这种情况下，success 会是 false。
+
+总结
+
+被调用方捕获异常并正常返回 -> success = true
+被调用方未捕获异常导致 Revert -> success = false
+被调用方 Gas 耗尽 -> success = false
+
+
+
+function _callOptionalReturn(address token, bytes memory data) private {
+	// We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+	// we're implementing it ourselves.
+	(bool success, bytes memory returndata) = token.call(data);
+	// If the low-level call didn't succeed we return whatever was returned from it.
+	assembly {
+		if eq(success, 0) {
+			returndatacopy(0, 0, returndatasize())
+			revert(0, returndatasize())
+		}
+let result := mload(returndata)
+        
+        // 2. 严格检查：EVM 的 bool 只能是 0 (false) 或 1 (true)
+        // gt(result, 1) 意思是 "greater than 1"
+        // 如果 result 是 2, 3, 100... 这里就会触发 revert
+        if gt(result, 1) {
+            // 这里我们手动 Revert，错误代码可以自定义，或者复用之前的
+            // 为了简单，这里直接 revert(0, 0)，实际项目中可以指向具体的错误字符串
+            revert(0, "return error") 
+        }
+	}
+	if (returndata.length != 0) {
+		require(abi.decode(returndata, (bool)), Errors.SAFE_ERC20_CALL_FAILED);
+	}
+}这样写如何呢？更好
+

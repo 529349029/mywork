@@ -1,0 +1,44 @@
+contract Test3{
+    uint a;
+    uint b;
+    uint c=3;
+    function test1() public{
+        a = b = c;
+    }
+    function test2()public view returns(uint a,uint b){
+        a=a;
+        b=b;
+        return (a,b);
+    }
+}
+
+
+
+
+
+
+
+结果不是（3，3），而是（0，0）
+
+
+
+
+
+
+
+contract Test4{
+    uint a;
+    uint b;
+    uint c=3;
+    function test1() public{
+        a = b = c;
+    }
+    function test2()public view returns(uint d,uint e){
+        d=a;
+        e=b;
+        return (d,e);
+    }
+}
+
+注意Test3的结果和这个Test4结果不同产生的原因，这个才是（3，3）
+

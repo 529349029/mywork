@@ -1,0 +1,73 @@
+  
+这里主要讲了assembly里面的if or(a,b)
+  /**
+   * @notice Divides two ray, rounding half up to the nearest ray
+   * @dev assembly optimized for improved gas savings, see https://twitter.com/transmissions11/status/1451131036377571328
+   * @param a Ray
+   * @param b Ray
+   * @return c = a raydiv b
+   */
+  function rayDiv(uint256 a, uint256 b) internal pure returns (uint256 c) {
+    // to avoid overflow, a <= (type(uint256).max - halfB) / RAY
+    assembly {
+		//
+      if or(iszero(b), iszero(iszero(gt(a, div(sub(not(0), div(b, 2)), RAY))))) {
+        revert(0, 0)
+      }
+
+      c := div(add(mul(a, RAY), div(b, 2)), b)
+    }
+  }
+
+contract ArrayLayoutChecker {
+    // slot0
+    uint256 public a = 2;
+    // slot1
+    uint256[] public arr = [0xdddd, 0xeeee, 0xffff];
+    // slot2
+    address public addr = address(1024);
+    // slot3 ~ slot6
+    address[4] public addrs = [
+        address(0xa),
+        address(0xb),
+        address(0xc),
+        address(0xd)
+    ];
+  //true
+    function rayDiv() public pure returns (bool c) {
+        // to avoid overflow, a <= (type(uint256).max - halfB) / RAY
+        assembly {
+            c := not(0)
+            /*
+		//
+      if or(iszero(b), iszero(iszero(gt(a, div(sub(not(0), div(b, 2)), RAY))))) {
+        revert(0, 0)
+      }
+
+      c := div(add(mul(a, RAY), div(b, 2)), b)
+      */
+        }
+    }
+
+    //115792089237316195423570985008687907853269984665640564039457584007913129639935
+    function rayDiv1() public pure returns (uint256 c) {
+        // to avoid overflow, a <= (type(uint256).max - halfB) / RAY
+        assembly {
+            c := not(0)
+            /*
+		//
+      if or(iszero(b), iszero(iszero(gt(a, div(sub(not(0), div(b, 2)), RAY))))) {
+        revert(0, 0)
+      }
+
+      c := div(add(mul(a, RAY), div(b, 2)), b)
+      */
+        }
+    }
+
+    //115792089237316195423570985008687907853269984665640564039457584007913129639935
+    function rayDiv2() public pure returns (uint256 c) {
+        // to avoid overflow, a <= (type(uint256).max - halfB) / RAY
+        c = ~uint256(0);
+    }
+}

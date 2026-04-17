@@ -1,0 +1,7 @@
+function _handleRemainingEth(uint256 ethWrapped) internal {
+    if (msg.value > ethWrapped) {
+        // 如果接收方是合约且没有 fallback 函数
+        msg.sender.call{value: msg.value - ethWrapped}("");
+        // call调用会失败但不会 revert，ETH 会丢失！错误不会抛出
+    }
+}

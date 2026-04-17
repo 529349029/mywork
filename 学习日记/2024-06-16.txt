@@ -1,0 +1,16 @@
+"  function transmit(
+    // NOTE: If these parameters are changed, expectedMsgDataLength and/or
+    // TRANSMIT_MSGDATA_CONSTANT_LENGTH_COMPONENT need to be changed accordingly
+    bytes calldata _report,
+    bytes32[] calldata _rs, bytes32[] calldata _ss, bytes32 _rawVs // signatures
+  )
+    external view returns(uint256 length,uint )
+  {
+    uint a=uint256(TRANSMIT_MSGDATA_CONSTANT_LENGTH_COMPONENT) +
+      _report.length + // one byte pure entry in _report
+      _rs.length * 32 + // 32 bytes per entry in _rs
+      _ss.length * 32 + // 32 bytes per entry in _ss
+      0; // placeholder
+   return (msg.data.length,a);
+  }
+开始传递多个参数，很麻烦，后来拆分使用[0x0000000000000000000000000000000000000000000000000000000000000000]作为参数时久久不能解决问题，后来搜索谷歌查出问题了，要加上引号[""0x0000000000000000000000000000000000000000000000000000000000000000""]"
