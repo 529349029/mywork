@@ -1,0 +1,59 @@
+ssh-keygen -t rsa -C "sfefinance@163.com"
+
+git config --global url."https://".insteadOf git://
+
+git config --global url."git://".insteadOf https://
+ git clone -b webapp git@github.com:sfefinance/nftaddgame.git
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFtB2LvdMnjl/XUP+7yNeSGj4wEy/2IzmKvtEq2O6wF2AeQSW+D0wXm+uGwCATqQQJkEGdr5nU/awNtODfcE4zHMk77r8gHxJvW75zkAYD+9QW5gmtpDrmyok/1ICEA9OMKhjEFGZ6XvZzGDFowAFbqHbdmUqgcsV0ja4t0TGZf8N2HtEpAR4LMByhcmUwozLIcs4UCwjrvdA5TwIlSro2gkN6VNbk3Qdr1uJ4UVwnz3UF/jgmE6BHDXSE7ozH1B9xcdz2HvYSdvkbOOgXxdRuWW76ZN9HLKs3LnlJIJJgTTKQuPedG+NzFxOppEEnRG9O8U2gaTQS2SWYxJn3q3EJ sfefinance@163.com
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCfKMOemM9bykVljSoavjCV/CwLLi2fgniuEVpyGKg7G1GkJbjO95dGbG7sblBiAfQO2vszgTg+IEcOug3aKRWOLfw6FFznsqyt7a0QrF+FrBwoNurybaPlVebTw3jGG+EPupEdEA+4tfI/BzCFMwFTOIqN6EtoRkiBFuFXLW8lzKiPBGWU0+pfBl98X/0Vh0uflF4lgd6DAN5ORtbekaaklLUV6hoiDm3zMVSkUpmY1Q8p6u1ce5DIkPZf8TuCcnvw0jggJYw3pHS7KAoRrCuLbjCm2AsOEfTK6He9vUQ1xCh21rQSpF8a0Qij9hl+rK41IF4Al86RKtbw252Op7RJ sfefinance@163.com
+git config --global user.email "sfefinance@163.com"
+git config --global user.name "sfefinance"
+
+mkdir eth_test
+cd eth_test
+git init 
+touch README.md
+git add README.md
+git commit -m "first commit"
+git remote add origin https://gitee.com/sfe529349029/eth_test.git
+git push -u origin "master"
+
+git添加仓库的步骤
+git init 
+添加忽略文件.gitignore
+配置.gitignore
+git add .
+git commit -a -m first-commit
+git remote add origin  git@github.com:sfefinance/server.git
+git push -u origin master或者git push origin master
+
+已有仓库?
+
+cd existing_git_repo
+git remote add origin https://gitee.com/sfe529349029/eth_test.git
+git push -u origin "master"
+切换分支
+git branch -a 
+git checkout -b bsc_tao_li_v4
+git push -u origin "master"
+
+方法有三种：
+
+1.修改命令
+
+git remote origin set-url [url]
+
+2.先删后加
+
+git remote rm origin
+git remote add origin [url]，如git remote set-url origin https://gitee.com/sfe529349029/eth_test.git
+
+3.直接修改config文件
+git获取现在远程仓库的地址的命令
+git remote -v
+
+git filter-branch --tree-filter 'rm -f 文件名' HEAD 
+文件大小超过100M
+https://blog.csdn.net/qq_40938788/article/details/112983836

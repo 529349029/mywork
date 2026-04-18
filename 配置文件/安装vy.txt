@@ -1,0 +1,2 @@
+pip3 install vyper
+pip install vyper==0.2.15

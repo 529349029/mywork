@@ -1,0 +1,1 @@
+对于pancake，使用闪电贷借本币归汉本币，如借Cake还Cake，借WBNB还WBNB，手续费是千分之3

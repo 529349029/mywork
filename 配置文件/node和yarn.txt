@@ -1,0 +1,12 @@
+npm install --no-bin-links
+yarn install --no-bin-links
+
+
+ln -s /media/lwg/D/node-v14/node-v14/bin/npm /usr/local/bin/
+ln -s /media/lwg/D/node-v14/node-v14/bin/node /usr/local/bin/
+ln -s /media/lwg/D/node-v14/node-v14/lib/node_modules/pm2/bin/pm2 /usr/local/bin/
+ln -s /media/lwg/D/node-v14/node-v14/lib/node_modules/yarn/bin/yarn /usr/local/bin/
+配置yarn环境变量
+
+
+export PATH="$PATH:/media/lwg/software/node-v14.18.3-linux-x64/node-v14.18.3-linux-x64/lib/node_modules/yarn/bin"

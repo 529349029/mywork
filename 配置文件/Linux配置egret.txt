@@ -1,0 +1,8 @@
+https://github.com/egret-labs/egret-core下载源码
+
+vim ~/.profile
+
+export PATH="/home/lenon/egret/egret-core/tools/bin:$PATH"
+
+source ~./profile，复制windows的egret compiler到Linux对应的文件夹C:Users/Administrator/AppData/Roaming/EgretLauncher/download/EgretCompiler
+到file:///home/lwg/.config/EgretLauncher/download/EgretCompiler

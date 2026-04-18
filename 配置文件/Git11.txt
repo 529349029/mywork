@@ -1,0 +1,8 @@
+# 清除记录的所有文件管理信息，注意行末的点表示当前目录，一定要写
+git rm -r --cached .
+# 添加该仓库的所有文件，注意行末的点表示当前目录，一定要写
+git add .
+# 提交注释
+git commit -m "....."
+# 推送到仓库
+git push -u origin master

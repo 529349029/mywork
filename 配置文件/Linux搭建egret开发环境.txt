@@ -1,0 +1,6 @@
+下载https://github.com/egret-labs/egret-core
+配置环境变量
+将Windows环境下的C:/Users/Administrator/AppData/Roaming/EgretLauncher目录全部复制到Linux目录之下
+对应的目录是
+/home/lwg/.config/(EgretLauncher/download/EgretCompiler)
+复制之后重启vscode

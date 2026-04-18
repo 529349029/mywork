@@ -1,0 +1,80 @@
+export PATH=/www/server/mongodb/bin:$PATH
+export PATH=/media/lwg/D/node-v16/node-v16/bin:$PATH
+export PATH=$PATH：/media/lwg/D/node-v16/node-v16/bin
+
+https://www.mongodb.org.cn/tutorial/59.html
+mongod --path=/data/db
+或者sudo mkdir /data/db
+uos安装mongod需要手动指定数据目录，或者说手动创建数据目录
+mongod --path=/data/db
+或者sudo mkdir /data/db
+service mongod start 
+
+mongo -u529349029 -p1191372769
+mongodb重启：
+/etc/init.d/mongodb start
+
+
+db.changeUserPassword("529349029","1191372769gfloki754245");
+
+use admin
+ 
+db.createUser( {user: "529349029",pwd: "1191372769gfloki754245",roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]})
+db.createUser( {user: "529349029",pwd: "1191372769gfloki754245",roles: [ { role: "readWriteAnyDatabase", db: "admin" } ]})
+db.createUser( {user: "529349029gfloki",pwd: "1191372769gfloki754245",roles: [ { role: "readWriteAnyDatabase", db: "admin" } ]})
+
+use admin
+db.createUser({user: "529349029", pwd: "1191372769gfloki754245", roles: [{role: "root", db: "admin"}]})
+
+db.dropUser("529349029")
+管理员添加之后要在对应数据库的user表里面添加用户
+
+use admin;
+db.changeUserPassword("testuser","testpassword");
+db.getCollection('nftimages').find({'url':{'$regex': "^http://198.2.222.132/"}}).forEach( 
+    function(item) {
+        var tmp = String(item.url)
+        tmp = tmp.replace('http://198.2.222.132/','https://genshinfloki.io/')
+        if (tmp == null){
+            print(item.url);
+        }
+ 
+        item.url = tmp ;
+        
+         db.getCollection('nftimages').save(item);
+    } 
+  );
+
+db.getCollection('nftimages').find({'url':{'$regex': "^http://198.2.222.132/"}}).forEach( 
+    function(item) {
+        var tmp = String(item.url);
+        tmp = tmp.replace('http://198.2.222.132/','https://genshinfloki.io/');
+        item.url = tmp ;        
+        db.getCollection('nftimages').save(item);
+    } 
+  );
+
+
+db.getCollection('nftimages').find({'fightingCapacity':{$exists: false}}).forEach( 
+    function(item) {
+        let strength = Number(item.strength);
+let attackForce=Number(item.attackForce);
+let defenseForce=Number(item.defenseForce);
+        item.fightingCapacity =strength+attackForce+defenseForce;  
+        db.getCollection('nftimages').save(item);
+    } 
+  );
+
+
+db.getCollection('nftimages').aggregate( 
+{'$group':{
+        '_id': {'tokenId': '$tokenId'},
+        'uniqueIds': {'$addToSet': '$_id'},
+        'count' : {'$sum': 1}
+    }},
+    {'$match': {
+        'count': {'$gt': 1}
+    }}
+)
+去重复查询
+db.getCollection('nftimages').update({},{$set:{minStrength:0,minExp:0,maxStrength:0,maxExp:0,grade:1}},{multi:true})

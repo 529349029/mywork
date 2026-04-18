@@ -1,0 +1,94 @@
+https://zhuanlan.zhihu.com/p/139116801
+pm2开机启动配置
+https://pm2.keymetrics.io/docs/usage/startup/#generating-a-startup-script
+http://t.zoukankan.com/duhuo-p-5587247.html
+
+lwg@lwg:/media/lwg/D/eth_test1$ pm2 save
+[PM2] Saving current process list...
+[PM2] Successfully saved in /home/lwg/.pm2/dump.pm2
+lwg@lwg:/media/lwg/D/eth_test1$ pm2 startup
+[PM2] Init System found: systemd
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/media/lwg/D/node-v14/node-v14/bin /media/lwg/D/node-v14/node-v14/lib/node_modules/pm2/bin/pm2 startup systemd -u lwg --hp /home/lwg
+lwg@lwg:/media/lwg/D/eth_test1$ sudo env PATH=$PATH:/media/lwg/D/node-v14/node-v14/bin /media/lwg/D/node-v14/node-v14/lib/node_modules/pm2/bin/pm2 startup systemd -u lwg --hp /home/lwg
+请输入密码:
+验证成功
+
+                        -------------
+
+__/\\\\\\\\\\\\\____/\\\\____________/\\\\____/\\\\\\\\\_____
+ _\/\\\/////////\\\_\/\\\\\\________/\\\\\\__/\\\///////\\\___
+  _\/\\\_______\/\\\_\/\\\//\\\____/\\\//\\\_\///______\//\\\__
+   _\/\\\\\\\\\\\\\/__\/\\\\///\\\/\\\/_\/\\\___________/\\\/___
+    _\/\\\/////////____\/\\\__\///\\\/___\/\\\________/\\\//_____
+     _\/\\\_____________\/\\\____\///_____\/\\\_____/\\\//________
+      _\/\\\_____________\/\\\_____________\/\\\___/\\\/___________
+       _\/\\\_____________\/\\\_____________\/\\\__/\\\\\\\\\\\\\\\_
+        _\///______________\///______________\///__\///////////////__
+
+
+                          Runtime Edition
+
+        PM2 is a Production Process Manager for Node.js applications
+                     with a built-in Load Balancer.
+
+                Start and Daemonize any application:
+                $ pm2 start app.js
+
+                Load Balance 4 instances of api.js:
+                $ pm2 start api.js -i 4
+
+                Monitor in production:
+                $ pm2 monitor
+
+                Make pm2 auto-boot at server restart:
+                $ pm2 startup
+
+                To go further checkout:
+                http://pm2.io/
+
+
+                        -------------
+
+[PM2] Init System found: systemd
+Platform systemd
+Template
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
+
+[Service]
+Type=forking
+User=lwg
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+Environment=PATH=/home/lwg/Downloads/cocos2d-x-4.0/cocos2d-x-4.0/templates:/home/lwg/Downloads/cocos2d-x-4.0:/home/lwg/Downloads/cocos2d-x-4.0/cocos2d-x-4.0/tools/cocos2d-console/bin:/home/lwg/.local/share/solana/install/active_release/bin:/home/lwg/.local/bin:/home/lwg/egret/egret-core/tools/bin:/home/lwg/.local/bin:/home/lwg/.cargo/bin:/home/lwg/Downloads/cocos2d-x-4.0/cocos2d-x-4.0/templates:/home/lwg/Downloads/cocos2d-x-4.0:/home/lwg/Downloads/cocos2d-x-4.0/cocos2d-x-4.0/tools/cocos2d-console/bin:/home/lwg/egret/egret-core/tools/bin:/media/lwg/D/node-v14/node-v14/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin:/media/lwg/D/node-v14/node-v14/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=PM2_HOME=/home/lwg/.pm2
+PIDFile=/home/lwg/.pm2/pm2.pid
+Restart=on-failure
+
+ExecStart=/media/lwg/D/node-v14/node-v14/lib/node_modules/pm2/bin/pm2 resurrect
+ExecReload=/media/lwg/D/node-v14/node-v14/lib/node_modules/pm2/bin/pm2 reload all
+ExecStop=/media/lwg/D/node-v14/node-v14/lib/node_modules/pm2/bin/pm2 kill
+
+[Install]
+WantedBy=multi-user.target
+
+Target path
+/etc/systemd/system/pm2-lwg.service
+Command list
+[ 'systemctl enable pm2-lwg' ]
+[PM2] Writing init configuration in /etc/systemd/system/pm2-lwg.service
+[PM2] Making script booting at startup...
+[PM2] [-] Executing: systemctl enable pm2-lwg...
+Created symlink /etc/systemd/system/multi-user.target.wants/pm2-lwg.service → /etc/systemd/system/pm2-lwg.service.
+[PM2] [v] Command successfully executed.
++---------------------------------------+
+[PM2] Freeze a process list on reboot via:
+$ pm2 save
+
+[PM2] Remove init script via:
+$ pm2 unstartup systemd
+lwg@lwg:/media/lwg/D/eth_test1$ systemctl enable pm2-lwg

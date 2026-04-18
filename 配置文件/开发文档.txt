@@ -1,0 +1,13 @@
+https://yitaiwangluo.com/    添加钱包,添加链
+https://github.com/getfotiaoqiang/fotiaoqiang 佛跳墙
+https://protonvpn.com/support/official-linux-vpn-debian/  vpn for linux
+https://protonvpn.com/support/linux-vpn-setup/ vpn for linux
+https://protonvpn.com/download-linux vpn for linux
+uengine install ftq.apk
+
+vscode linux 下修改文件监控数
+
+解决 bug System limit for number of file watchers reached, watch 
+
+在/etc/sysctl.conf最后面加入
+fs.inotify.max_user_watches=524288，去掉前面的#
