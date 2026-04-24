@@ -1,0 +1,90 @@
+# ==================== Foundry 编译产物 ====================
+# 编译输出目录
+out/
+cache/
+
+# ==================== 依赖管理 ====================
+# lib 目录（forge install 安装的库）
+lib/
+
+# ==================== Node.js ====================
+# 如果你用 JavaScript 辅助脚本
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==================== 环境变量 ====================
+# ⚠️ 绝对不要提交私钥！
+.env
+.env.local
+.env.production
+.json
+# ==================== 操作系统文件 ====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==================== IDE 配置 ====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==================== 日志和临时文件 ====================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==================== 测试覆盖率报告 ====================
+coverage/
+lcov.info
+
+# ==================== 生成的数据文件（可选）====================
+# 如果不想提交自动生成的 Excel/Markdown
+scripts/*.xlsx
+scripts/*.md
+!scripts/README.md  # 但保留手写说明
+
+# ==================== 构建产物 ====================
+build/
+dist/
+
+# 忽略node_modules文件夹
+node_modules/
+artifacts/
+cache/
+ignition/
+bin/
+test/
+.git/
+# 忽略临时文件
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# 忽略环境配置文件
+.env
+.env.local
+
+# 忽略系统文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 忽略构建输出
+dist/
+build/
+out/
+# 添加远程仓库（请替换为您的仓库URL）
+git remote add origin <your-remote-repository-url>
+
+# 推送到远程仓库
+Remove-Item -Path ".git" -Recurse -Force
+c2141ef2697927d9c101fbb1b473741e这是我的私人gitee令牌
+git config user.name "sfefinance"
+git config user.email "sfefinance@163.com"
