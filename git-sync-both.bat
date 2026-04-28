@@ -13,7 +13,7 @@ if %errorlevel% neq 0 (
 
 echo Pulling latest changes...
 git pull myfork3 master
-git pull origin master
+git -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 pull origin master
 
 echo Pushing changes...
 git push myfork3 master
