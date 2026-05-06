@@ -1,0 +1,105 @@
+{
+  "version": "2.0",
+  "project": "数据表格",
+  "currentPhase": "plan",
+  "currentTier": "standard",
+  "phaseHistory": [],
+  "gates": {
+    "G1": {
+      "status": "skipped",
+      "verifiedAt": null
+    },
+    "G2": {
+      "status": "pending",
+      "verifiedAt": null
+    },
+    "G3": {
+      "status": "skipped",
+      "verifiedAt": null
+    },
+    "G4": {
+      "status": "pending",
+      "verifiedAt": null
+    },
+    "G5": {
+      "status": "pending",
+      "verifiedAt": null
+    },
+    "G6": {
+      "status": "skipped",
+      "verifiedAt": null
+    },
+    "G7": {
+      "status": "skipped",
+      "verifiedAt": null
+    }
+  },
+  "metrics": {
+    "tasksCompleted": 0,
+    "gatesPassed": 0,
+    "gatesFailed": 0,
+    "avgPhaseDuration": {}
+  },
+  "tierConfig": {
+    "express": {
+      "flow": [
+        "fix",
+        "verify"
+      ],
+      "gates": [
+        "G4",
+        "G5"
+      ]
+    },
+    "standard": {
+      "flow": [
+        "plan",
+        "execute",
+        "verify"
+      ],
+      "gates": [
+        "G2",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    },
+    "full": {
+      "flow": [
+        "explore",
+        "plan",
+        "execute",
+        "verify",
+        "consolidate"
+      ],
+      "gates": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6"
+      ]
+    },
+    "critical": {
+      "flow": [
+        "explore",
+        "plan",
+        "review",
+        "execute",
+        "verify",
+        "security",
+        "consolidate"
+      ],
+      "gates": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6",
+        "G7"
+      ]
+    }
+  }
+}

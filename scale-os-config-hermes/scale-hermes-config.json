@@ -1,0 +1,20 @@
+{
+  "_comment": "SCALE OS 生成的 Hermes Agent 通用配置，请参照对应 Agent 官方文档调整格式",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash(pytest:*)",
+      "Bash(ruff check .:*)",
+      "Bash(pip install -e .:*)",
+      "Bash(git:*)",
+      "Write(src/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(DROP:*)",
+      "Write(.env*)"
+    ]
+  }
+}
