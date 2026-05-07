@@ -19,3 +19,4 @@ echo Pushing to GitHub (with proxy)...
 git -c http.proxy=http://127.0.0.1:7890 -c https.proxy=http://127.0.0.1:7890 push origin master
 
 echo Git sync completed!
+pause
