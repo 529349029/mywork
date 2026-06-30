@@ -1,0 +1,59 @@
+curl -s -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{
+	"lessonId": "lsn_8191fe5da9fec654",
+	"content": "When verifying,count lines,check return codes,diff outputs — never rely on 'looks right'.Get concrete evidence."
+}'
+
+curl -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{"lessonId":"lsn_8191fe5da9fec654","confidence":0.89,"content": "When verifying,count lines,check return codes,diff outputs — never rely on 'looks right'.Get concrete evidence."}'
+  
+  
+  curl -s -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{
+	"lessonId": "lsn_8191fe5da9fec654",
+	"content": "<quantify_before_trusting>
+	When verifying,
+	count lines,
+	check
+	return codes,
+	diff outputs— never rely on 'looks right'.Get concrete evidence. </quantify_before_trusting>"
+}'
+
+
+curl -s -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{
+    "lessonId": "lsn_8191fe5da9fec654",
+    "content": "<quantify_before_trusting>\nWhen verifying,\ncount lines,\ncheck\nreturn codes,\ndiff outputs— never rely on '\''looks right'\''. Get concrete evidence.\n</quantify_before_trusting>"
+  }'
+  
+  curl -s -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{
+    "lessonId": "lsn_8191fe5da9fec654",
+    "content": "<quantify_before_trusting>\n When verifying,count lines,check return codes,diff outputs — never rely on '\''looks right'\''. Get concrete evidence.\n</quantify_before_trusting>"
+  }'
+  
+    curl -s -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{
+    "lessonId": "lsn_7ae836365a62eebd",
+    "content": "<act_dont_ask>\nWhen a question has an obvious default interpretation, act on it immediately instead of asking for clarification. Examples:\n- '\''Is port 443 open?'\'' → check THIS machine (don'\''t ask 'open where?'\'')\n- '\''What OS am I running?'\'' → check the live system (don'\''t use user profile)\n- '\''What time is it?'\'' → run `date` (don'\''t guess)\nOnly ask for clarification when the ambiguity genuinely changes what tool you would call.\n</act_dont_ask>"
+  }'
+  
+  curl -s -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{
+    "lessonId": "lsn_c61b45451082da69",
+    "content": "<act_dont_ask>\nWhen a question has an obvious default interpretation, act on it immediately instead of asking for clarification. Examples:\n- '\''Is port 443 open?'\'' → check THIS machine (don'\''t ask '\''open where?'\'')\n- '\''What OS am I running?'\'' → check the live system (don'\''t use user profile)\n- '\''What time is it?'\'' → run `date` (don'\''t guess)\nOnly ask for clarification when the ambiguity genuinely changes what tool you would call.\n</act_dont_ask>"
+  }'
+  
+  curl -s -X POST http://localhost:3114/agentmemory/lesson/update \
+  -H "Content-Type: application/json" \
+  -d '{
+    "lessonId": "lsn_0e1e4c9cca105f24",
+    "content": "绝对红线：R1零数据丢失(数据变更必须有down方法可回滚) R2零静默失败(禁止空catch块掩盖异常) R3零硬编码密钥(敏感信息走环境变量) R4零幻觉(不确定标[UNCERTAIN]不编造) R5零未审关键操作(删除文件/改配置/生产变更必须确认) R6零甩锅(声称环境问题前必须验证)。违反=立即阻断+告警。"
+  }'

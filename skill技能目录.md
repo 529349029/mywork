@@ -1,0 +1,14 @@
+/home/administrator/workspace/hermes-agent/skills/   D:/all-skills/hermes-agent-skills
+/home/administrator/workspace/.agents/skills/   D:/all-skills/workspace-agents-skills
+/home/administrator/workspace/.hermes/skills/   D:/all-skills/workspace-hermes-skills
+/home/administrator/.agents/skills/   D:/all-skills/administrator-agents-skills
+/home/administrator/commonSkills/   D:/all-skills/home-administrator-commonSkills
+/home/administrator/.hermes/skills/   D:/all-skills/administrator-hermes-skills
+/home/administrator/.hermes/profiles/auditor/skills/   D:/all-skills/profiles-auditor-skills
+/home/administrator/.hermes/profiles/trader/skills/   D:/all-skills/profiles-trader-skills
+/home/administrator/.hermes/hermes-agent-copy/skills/   D:/all-skills/hermes-agent-copy-skills
+/home/administrator/workspace/chain-tools   D:/all-skills/chain-tools/
+/home/administrator/workspace/audit/   D:/all-skills/workspace-audit/
+/home/administrator/workspace/aave/   D:/all-skills/workspace-aave/
+/home/administrator/.hermes/plugins/   D:/all-skills/hermes-plugins
+/home/administrator/.config/    D:/all-skills/administrator-config
