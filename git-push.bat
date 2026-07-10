@@ -7,7 +7,8 @@ echo ==========================================
 echo      Windows 一键 Git 提交脚本
 echo ==========================================
 echo.
-
+git config --global --unset http.proxy
+git config --global --unset https.proxy
 :: 1. 检查是否有更改
 git status --porcelain | findstr /r "." >nul
 if errorlevel 1 (
