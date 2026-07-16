@@ -1,0 +1,308 @@
+# Fastest RPC Nodes (from Chainlist)
+# Generated: 2026-06-05T18:39:42Z
+
+1:
+  name: Ethereum Mainnet
+  chain: ETH
+  symbol: ETH
+  decimals: 18
+  chainId: 1
+  tvl: 84423750187.09717
+  explorer_url: https://etherscan.io
+  fastest_https:
+    url: https://rpc.mevblocker.io
+    latency_ms: 702
+    tracking: none
+  fastest_wss:
+    url: wss://mainnet.gateway.tenderly.co
+    latency_ms: 454
+    tracking: none
+56:
+  name: BNB Smart Chain Mainnet
+  chain: BSC
+  symbol: BNB
+  decimals: 18
+  chainId: 56
+  tvl: 7122965776.032473
+  explorer_url: https://bscscan.com
+  fastest_https:
+    url: https://public-bsc-mainnet.fastnode.io
+    latency_ms: 665
+    tracking: none
+  fastest_wss: null
+8453:
+  name: Base
+  chain: ETH
+  symbol: ETH
+  decimals: 18
+  chainId: 8453
+  tvl: 6170342447.982395
+  explorer_url: https://basescan.org
+  fastest_https:
+    url: https://gateway.tenderly.co/public/base
+    latency_ms: 239
+    tracking: 'yes'
+  fastest_wss:
+    url: wss://base.gateway.tenderly.co
+    latency_ms: 443
+    tracking: none
+42161:
+  name: Arbitrum One
+  chain: ETH
+  symbol: ETH
+  decimals: 18
+  chainId: 42161
+  tvl: 2110844441.3356872
+  explorer_url: https://arbiscan.io
+  fastest_https:
+    url: https://rpc.ankr.com/arbitrum/c4cc6a8c87ec30258076de433ab2cf3d834228aae3fc4d76087873e4fea11635
+    latency_ms: 220
+    tracking: 'yes'
+  fastest_wss:
+    url: wss://arbitrum-one-rpc.publicnode.com
+    latency_ms: 471
+    tracking: none
+9745:
+  name: Plasma Mainnet
+  chain: Plasma
+  symbol: XPL
+  decimals: 18
+  chainId: 9745
+  tvl: 1369948161.09274
+  explorer_url: https://plasmascan.to
+  fastest_https:
+    url: https://rpc.plasma.to
+    latency_ms: 674
+    tracking: none
+  fastest_wss:
+    url: wss://plasma.drpc.org
+    latency_ms: 763
+    tracking: none
+43114:
+  name: Avalanche C-Chain
+  chain: AVAX
+  symbol: AVAX
+  decimals: 18
+  chainId: 43114
+  tvl: 1154788570.5490544
+  explorer_url: https://snowscan.xyz
+  fastest_https:
+    url: https://rpc.owlracle.info/avax/70d38ce1826c4a60bb2a8e05a6c8b20f
+    latency_ms: 318
+    tracking: limited
+  fastest_wss:
+    url: wss://avalanche-c-chain-rpc.publicnode.com
+    latency_ms: 479
+    tracking: none
+137:
+  name: Polygon Mainnet
+  chain: Polygon
+  symbol: POL
+  decimals: 18
+  chainId: 137
+  tvl: 1099582303.4267998
+  explorer_url: https://polygonscan.com
+  fastest_https:
+    url: https://rpc.ankr.com/polygon
+    latency_ms: 225
+    tracking: limited
+  fastest_wss:
+    url: wss://polygon-bor-rpc.publicnode.com
+    latency_ms: 471
+    tracking: none
+57073:
+  name: Ink
+  chain: ETH
+  symbol: ETH
+  decimals: 18
+  chainId: 57073
+  tvl: 951041541.6067022
+  explorer_url: https://explorer.inkonchain.com
+  fastest_https: null
+  fastest_wss:
+    url: wss://rpc-qnd.inkonchain.com
+    latency_ms: 3433
+    tracking: none
+10:
+  name: OP Mainnet
+  chain: ETH
+  symbol: ETH
+  decimals: 18
+  chainId: 10
+  tvl: 602904951.4856468
+  explorer_url: https://optimistic.etherscan.io
+  fastest_https:
+    url: https://gateway.tenderly.co/public/optimism
+    latency_ms: 218
+    tracking: 'yes'
+  fastest_wss:
+    url: wss://optimism.gateway.tenderly.co
+    latency_ms: 447
+    tracking: none
+143:
+  name: Monad
+  chain: MON
+  symbol: MON
+  decimals: 18
+  chainId: 143
+  tvl: 597556251.326745
+  explorer_url: https://monadvision.com
+  fastest_https:
+    url: https://rpc-mainnet.monadinfra.com
+    latency_ms: 666
+    tracking: none
+  fastest_wss:
+    url: wss://wss.monad-rpc.huginn.tech
+    latency_ms: 1122
+    tracking: none
+14:
+  name: Flare Mainnet
+  chain: FLR
+  symbol: FLR
+  decimals: 18
+  chainId: 14
+  tvl: 359559143.6788102
+  explorer_url: https://flare-explorer.flare.network
+  fastest_https:
+    url: https://rpc.ankr.com/flare
+    latency_ms: 233
+    tracking: none
+  fastest_wss: null
+5000:
+  name: Mantle
+  chain: ETH
+  symbol: MNT
+  decimals: 18
+  chainId: 5000
+  tvl: 316255061.78624666
+  explorer_url: https://mantlescan.xyz
+  fastest_https:
+    url: https://rpc.owlracle.info/mantle/70d38ce1826c4a60bb2a8e05a6c8b20f
+    latency_ms: 315
+    tracking: limited
+  fastest_wss:
+    url: wss://mantle-rpc.publicnode.com
+    latency_ms: 508
+    tracking: none
+25:
+  name: Cronos Mainnet
+  chain: CRO
+  symbol: CRO
+  decimals: 18
+  chainId: 25
+  tvl: 314188978.0983332
+  explorer_url: https://explorer.cronos.org
+  fastest_https:
+    url: https://rpc.owlracle.info/cro/70d38ce1826c4a60bb2a8e05a6c8b20f
+    latency_ms: 323
+    tracking: limited
+  fastest_wss:
+    url: wss://cronos-evm-rpc.publicnode.com
+    latency_ms: 467
+    tracking: none
+173:
+  name: ENI Mainnet
+  chain: ENI
+  symbol: EGAS
+  decimals: 18
+  chainId: 173
+  tvl: 260375314.5093205
+  explorer_url: https://scan.eniac.network
+  fastest_https: null
+  fastest_wss:
+    url: wss://rpc.eniac.network/ws
+    latency_ms: 3806
+    tracking: none
+747474:
+  name: katana
+  chain: katana
+  symbol: ETH
+  decimals: 18
+  chainId: 747474
+  tvl: 234172519.7353411
+  explorer_url: https://katanascan.com
+  fastest_https:
+    url: https://rpc.swiftnodes.io/rpc/katana
+    latency_ms: 1896
+    tracking: limited
+  fastest_wss:
+    url: wss://katana.drpc.org
+    latency_ms: 3492
+    tracking: none
+80094:
+  name: Berachain
+  chain: Berachain
+  symbol: BERA
+  decimals: 18
+  chainId: 80094
+  tvl: 199209373.58757555
+  explorer_url: https://berascan.com
+  fastest_https:
+    url: https://rpc.swiftnodes.io/rpc/berachain
+    latency_ms: 1830
+    tracking: limited
+  fastest_wss:
+    url: wss://berachain-rpc.publicnode.com
+    latency_ms: 3456
+    tracking: none
+100:
+  name: Gnosis
+  chain: GNO
+  symbol: XDAI
+  decimals: 18
+  chainId: 100
+  tvl: 142314298.21288818
+  explorer_url: https://gnosisscan.io
+  fastest_https:
+    url: https://rpc.ankr.com/gnosis
+    latency_ms: 224
+    tracking: none
+  fastest_wss:
+    url: wss://gnosis-rpc.publicnode.com
+    latency_ms: 483
+    tracking: none
+4326:
+  name: MegaETH
+  chain: MEGA
+  symbol: ETH
+  decimals: 18
+  chainId: 4326
+  tvl: 126392969.12359144
+  explorer_url: https://mega.etherscan.io
+  fastest_https:
+    url: https://mainnet.megaeth.com/rpc
+    latency_ms: 651
+    tracking: none
+  fastest_wss:
+    url: wss://megaeth.drpc.org
+    latency_ms: 528
+    tracking: none
+1329:
+  name: Sei Network
+  chain: Sei
+  symbol: SEI
+  decimals: 18
+  chainId: 1329
+  tvl: 103550358.39803755
+  explorer_url: https://seiscan.io
+  fastest_https:
+    url: https://evm-rpc.sei-apis.com
+    latency_ms: 651
+    tracking: none
+  fastest_wss:
+    url: wss://sei.drpc.org
+    latency_ms: 501
+    tracking: none
+30:
+  name: Rootstock Mainnet
+  chain: Rootstock
+  symbol: RBTC
+  decimals: 18
+  chainId: 30
+  tvl: 101562525.57418841
+  explorer_url: https://explorer.rsk.co
+  fastest_https:
+    url: https://rootstock-mainnet.public.blastapi.io
+    latency_ms: 644
+    tracking: limited
+  fastest_wss: null
