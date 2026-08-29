@@ -1,0 +1,6 @@
+name: audit-enforcer
+version: "0.1"
+description: Enforces audit workflow gates — blocks skipping phases (addr_doc/slither/checklist), enforces unified audit dir, tracks per-subproject state
+provides_hooks:
+  - pre_tool_call
+  - post_llm_call
